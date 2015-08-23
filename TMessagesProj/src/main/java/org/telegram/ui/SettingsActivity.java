@@ -112,6 +112,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
     private int settingsSectionRow;
     private int settingsSectionRow2;
     private int enableAnimationsRow;
+    private int enableScreenshotDetectionRow;
     private int notificationRow;
     private int backgroundRow;
     private int languageRow;
@@ -230,6 +231,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
         backgroundRow = rowCount++;
         languageRow = rowCount++;
         enableAnimationsRow = rowCount++;
+        enableScreenshotDetectionRow = rowCount++;
         mediaDownloadSection = rowCount++;
         mediaDownloadSection2 = rowCount++;
         mobileDownloadRow = rowCount++;
@@ -422,6 +424,15 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                     boolean animations = preferences.getBoolean("view_animations", true);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean("view_animations", !animations);
+                    editor.commit();
+                    if (view instanceof TextCheckCell) {
+                        ((TextCheckCell) view).setChecked(!animations);
+                    }
+                } else if (i == enableScreenshotDetectionRow) {
+                    SharedPreferences preferences = ApplicationLoader.applicationContext.getSharedPreferences("mainconfig", Activity.MODE_PRIVATE);
+                    boolean animations = preferences.getBoolean("detect_screenshots", true);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean("detect_screenshots", !animations);
                     editor.commit();
                     if (view instanceof TextCheckCell) {
                         ((TextCheckCell) view).setChecked(!animations);
@@ -1065,7 +1076,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
 
         @Override
         public boolean isEnabled(int i) {
-            return i == textSizeRow || i == enableAnimationsRow || i == notificationRow || i == backgroundRow || i == numberRow ||
+            return i == textSizeRow || i == enableAnimationsRow || i == enableScreenshotDetectionRow || i == notificationRow || i == backgroundRow || i == numberRow ||
                     i == askQuestionRow || i == sendLogsRow || i == sendByEnterRow || i == privacyRow || i == wifiDownloadRow ||
                     i == mobileDownloadRow || i == clearLogsRow || i == roamingDownloadRow || i == languageRow || i == usernameRow ||
                     i == switchBackendButtonRow || i == telegramFaqRow || i == contactsSortRow || i == contactsReimportRow || i == saveToGalleryRow ||
@@ -1161,6 +1172,8 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                 SharedPreferences preferences = ApplicationLoader.applicationContext.getSharedPreferences("mainconfig", Activity.MODE_PRIVATE);
                 if (i == enableAnimationsRow) {
                     textCell.setTextAndCheck(LocaleController.getString("EnableAnimations", R.string.EnableAnimations), preferences.getBoolean("view_animations", true), false);
+                } else if (i == enableScreenshotDetectionRow) {
+                    textCell.setTextAndCheck(LocaleController.getString("DetectScreenshots", R.string.DetectScreenshots), preferences.getBoolean("detect_screenshots", true), false);
                 } else if (i == sendByEnterRow) {
                     textCell.setTextAndCheck(LocaleController.getString("SendByEnter", R.string.SendByEnter), preferences.getBoolean("send_by_enter", false), false);
                 } else if (i == saveToGalleryRow) {
@@ -1267,7 +1280,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
             }
             if (i == settingsSectionRow || i == supportSectionRow || i == messagesSectionRow || i == mediaDownloadSection || i == contactsSectionRow) {
                 return 1;
-            } else if (i == enableAnimationsRow || i == sendByEnterRow || i == saveToGalleryRow) {
+            } else if (i == enableAnimationsRow || i == enableScreenshotDetectionRow || i == sendByEnterRow || i == saveToGalleryRow) {
                 return 3;
             } else if (i == notificationRow || i == backgroundRow || i == askQuestionRow || i == sendLogsRow || i == privacyRow || i == clearLogsRow || i == switchBackendButtonRow || i == telegramFaqRow || i == contactsReimportRow || i == textSizeRow || i == languageRow || i == contactsSortRow || i == stickersRow) {
                 return 2;

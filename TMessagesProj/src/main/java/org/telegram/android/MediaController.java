@@ -931,7 +931,13 @@ public class MediaController implements NotificationCenter.NotificationCenterDel
                 }
                 cursor.close();
             }
-            if (!screenshotDates.isEmpty()) {
+
+            // Not the highest place to stop this, but here we are basically nopping
+            // screenshot detection.
+            SharedPreferences preferences = ApplicationLoader.applicationContext.getSharedPreferences("mainconfig", Activity.MODE_PRIVATE);
+            boolean detectScreenshots = preferences.getBoolean("detect_screenshots", true);
+
+            if (detectScreenshots && !screenshotDates.isEmpty()) {
                 AndroidUtilities.runOnUIThread(new Runnable() {
                     @Override
                     public void run() {

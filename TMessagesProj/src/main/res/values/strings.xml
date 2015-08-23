@@ -214,7 +214,7 @@
     <!--group info view-->
     <string name="SharedMedia">Shared Media</string>
     <string name="SETTINGS">Settings</string>
-    <string name="DAVIDSETTINGS">David\'s Settings</string>
+    <string name="DAVIDSETTINGS" translatable="false">David\'s Settings</string>
     <string name="AddMember">Add member</string>
     <string name="DeleteAndExit">Delete and leave group</string>
     <string name="Notifications">Notifications</string>
@@ -272,7 +272,7 @@
     <string name="TextSize">Messages Text Size</string>
     <string name="AskAQuestion">Ask a Question</string>
     <string name="EnableAnimations">Enable Animations</string>
-    <string name="DetectScreenshots">Detect Screenshots</string>
+    <string name="DetectScreenshots" translatable="false">Detect Screenshots</string>
     <string name="Unblock">Unblock</string>
     <string name="UnblockText">Tap and hold on user to unblock.</string>
     <string name="NoBlocked">No blocked users yet</string>

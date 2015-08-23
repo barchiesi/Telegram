@@ -112,13 +112,13 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
     private int settingsSectionRow;
     private int settingsSectionRow2;
     private int enableAnimationsRow;
-    private int enableScreenshotDetectionRow;
     private int notificationRow;
     private int backgroundRow;
     private int languageRow;
     private int privacyRow;
     private int davidSettingsSectionRow;
     private int davidSettingsSectionRow2;
+    private int enableScreenshotDetectionRow;
     private int mediaDownloadSection;
     private int mediaDownloadSection2;
     private int mobileDownloadRow;

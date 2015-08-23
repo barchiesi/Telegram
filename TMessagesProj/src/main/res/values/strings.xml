@@ -214,6 +214,7 @@
     <!--group info view-->
     <string name="SharedMedia">Shared Media</string>
     <string name="SETTINGS">Settings</string>
+    <string name="DAVIDSETTINGS">David\'s Settings</string>
     <string name="AddMember">Add member</string>
     <string name="DeleteAndExit">Delete and leave group</string>
     <string name="Notifications">Notifications</string>

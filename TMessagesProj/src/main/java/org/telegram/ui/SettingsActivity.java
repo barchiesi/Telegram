@@ -117,6 +117,8 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
     private int backgroundRow;
     private int languageRow;
     private int privacyRow;
+    private int davidSettingsSectionRow;
+    private int davidSettingsSectionRow2;
     private int mediaDownloadSection;
     private int mediaDownloadSection2;
     private int mobileDownloadRow;
@@ -231,6 +233,8 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
         backgroundRow = rowCount++;
         languageRow = rowCount++;
         enableAnimationsRow = rowCount++;
+        davidSettingsSectionRow = rowCount++;
+        davidSettingsSectionRow2 = rowCount++;
         enableScreenshotDetectionRow = rowCount++;
         mediaDownloadSection = rowCount++;
         mediaDownloadSection2 = rowCount++;
@@ -1185,6 +1189,8 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                 }
                 if (i == settingsSectionRow2) {
                     ((HeaderCell) view).setText(LocaleController.getString("SETTINGS", R.string.SETTINGS));
+                } else if (i == davidSettingsSectionRow2) {
+                    ((HeaderCell) view).setText(LocaleController.getString("DAVIDSETTINGS", R.string.DAVIDSETTINGS));
                 } else if (i == supportSectionRow2) {
                     ((HeaderCell) view).setText(LocaleController.getString("Support", R.string.Support));
                 } else if (i == messagesSectionRow2) {
@@ -1278,7 +1284,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
             if (i == emptyRow || i == overscrollRow) {
                 return 0;
             }
-            if (i == settingsSectionRow || i == supportSectionRow || i == messagesSectionRow || i == mediaDownloadSection || i == contactsSectionRow) {
+            if (i == settingsSectionRow || i == davidSettingsSectionRow || i == supportSectionRow || i == messagesSectionRow || i == mediaDownloadSection || i == contactsSectionRow) {
                 return 1;
             } else if (i == enableAnimationsRow || i == enableScreenshotDetectionRow || i == sendByEnterRow || i == saveToGalleryRow) {
                 return 3;
@@ -1288,7 +1294,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                 return 5;
             } else if (i == wifiDownloadRow || i == mobileDownloadRow || i == roamingDownloadRow || i == numberRow || i == usernameRow) {
                 return 6;
-            } else if (i == settingsSectionRow2 || i == messagesSectionRow2 || i == supportSectionRow2 || i == numberSectionRow || i == mediaDownloadSection2) {
+            } else if (i == settingsSectionRow2 || i == davidSettingsSectionRow2 || i == messagesSectionRow2 || i == supportSectionRow2 || i == numberSectionRow || i == mediaDownloadSection2) {
                 return 4;
             } else {
                 return 2;

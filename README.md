@@ -6,4 +6,4 @@ Use at your own risk, I am not responsible for anything. [Here](https://github.c
 ### Extra Features
 
 1. Disable screenshot detection.
-
+2. Allow viewing encrypted chat message in notifications.

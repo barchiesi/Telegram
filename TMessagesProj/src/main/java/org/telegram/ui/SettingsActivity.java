@@ -119,6 +119,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
     private int davidSettingsSectionRow;
     private int davidSettingsSectionRow2;
     private int enableScreenshotDetectionRow;
+    private int extraInfoSecretNotification;
     private int mediaDownloadSection;
     private int mediaDownloadSection2;
     private int mobileDownloadRow;
@@ -236,6 +237,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
         davidSettingsSectionRow = rowCount++;
         davidSettingsSectionRow2 = rowCount++;
         enableScreenshotDetectionRow = rowCount++;
+        extraInfoSecretNotification = rowCount++;
         mediaDownloadSection = rowCount++;
         mediaDownloadSection2 = rowCount++;
         mobileDownloadRow = rowCount++;
@@ -437,6 +439,15 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                     boolean animations = preferences.getBoolean("detect_screenshots", true);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean("detect_screenshots", !animations);
+                    editor.commit();
+                    if (view instanceof TextCheckCell) {
+                        ((TextCheckCell) view).setChecked(!animations);
+                    }
+                } else if (i == extraInfoSecretNotification) {
+                    SharedPreferences preferences = ApplicationLoader.applicationContext.getSharedPreferences("mainconfig", Activity.MODE_PRIVATE);
+                    boolean animations = preferences.getBoolean("show_extra_info_secret_notification", true);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean("show_extra_info_secret_notification", !animations);
                     editor.commit();
                     if (view instanceof TextCheckCell) {
                         ((TextCheckCell) view).setChecked(!animations);
@@ -1080,7 +1091,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
 
         @Override
         public boolean isEnabled(int i) {
-            return i == textSizeRow || i == enableAnimationsRow || i == enableScreenshotDetectionRow || i == notificationRow || i == backgroundRow || i == numberRow ||
+            return i == textSizeRow || i == enableAnimationsRow || i == enableScreenshotDetectionRow || i == extraInfoSecretNotification || i == notificationRow || i == backgroundRow || i == numberRow ||
                     i == askQuestionRow || i == sendLogsRow || i == sendByEnterRow || i == privacyRow || i == wifiDownloadRow ||
                     i == mobileDownloadRow || i == clearLogsRow || i == roamingDownloadRow || i == languageRow || i == usernameRow ||
                     i == switchBackendButtonRow || i == telegramFaqRow || i == contactsSortRow || i == contactsReimportRow || i == saveToGalleryRow ||
@@ -1178,6 +1189,8 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                     textCell.setTextAndCheck(LocaleController.getString("EnableAnimations", R.string.EnableAnimations), preferences.getBoolean("view_animations", true), false);
                 } else if (i == enableScreenshotDetectionRow) {
                     textCell.setTextAndCheck(LocaleController.getString("DetectScreenshots", R.string.DetectScreenshots), preferences.getBoolean("detect_screenshots", true), false);
+                } else if (i == extraInfoSecretNotification) {
+                    textCell.setTextAndCheck(LocaleController.getString("ShowExtraInfoSecretNotification", R.string.ShowExtraInfoSecretNotification), preferences.getBoolean("show_extra_info_secret_notification", true), false);
                 } else if (i == sendByEnterRow) {
                     textCell.setTextAndCheck(LocaleController.getString("SendByEnter", R.string.SendByEnter), preferences.getBoolean("send_by_enter", false), false);
                 } else if (i == saveToGalleryRow) {
@@ -1286,7 +1299,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
             }
             if (i == settingsSectionRow || i == davidSettingsSectionRow || i == supportSectionRow || i == messagesSectionRow || i == mediaDownloadSection || i == contactsSectionRow) {
                 return 1;
-            } else if (i == enableAnimationsRow || i == enableScreenshotDetectionRow || i == sendByEnterRow || i == saveToGalleryRow) {
+            } else if (i == enableAnimationsRow || i == extraInfoSecretNotification || i == enableScreenshotDetectionRow || i == sendByEnterRow || i == saveToGalleryRow) {
                 return 3;
             } else if (i == notificationRow || i == backgroundRow || i == askQuestionRow || i == sendLogsRow || i == privacyRow || i == clearLogsRow || i == switchBackendButtonRow || i == telegramFaqRow || i == contactsReimportRow || i == textSizeRow || i == languageRow || i == contactsSortRow || i == stickersRow) {
                 return 2;

@@ -211,7 +211,13 @@ public class NotificationsController {
 
         String msg = null;
         if ((int)dialog_id == 0 || AndroidUtilities.needShowPasscode(false) || UserConfig.isWaitingForPasscodeEnter) {
-            msg = LocaleController.getString("YouHaveNewMessage", R.string.YouHaveNewMessage);
+            SharedPreferences preferences = ApplicationLoader.applicationContext.getSharedPreferences("mainconfig", Activity.MODE_PRIVATE);
+            boolean showExtraInfo = preferences.getBoolean("show_extra_info_secret_notification", true);
+            if (showExtraInfo) {
+                msg = LocaleController.getString("YouHaveNewMessage", R.string.YouHaveNewMessage);
+            } else {
+                msg = LocaleController.formatString("NotificationMessageText", R.string.NotificationMessageText, UserObject.getUserName(user), messageObject.messageOwner.message);
+            }
         } else {
             if (chat_id == 0 && user_id != 0) {
                 SharedPreferences preferences = ApplicationLoader.applicationContext.getSharedPreferences("Notifications", Context.MODE_PRIVATE);

@@ -224,7 +224,7 @@ public class NotificationsController {
             if (showExtraInfo) {
                 msg = LocaleController.getString("YouHaveNewMessage", R.string.YouHaveNewMessage);
             } else {
-                msg = LocaleController.formatString("NotificationMessageText", R.string.NotificationMessageText, UserObject.getUserName(user), messageObject.messageOwner.message);
+                msg = LocaleController.formatString("NotificationMessageText", R.string.NotificationMessageText, name, messageObject.messageOwner.message);
             }
         } else {
             if (chat_id == 0 && from_id != 0) {

@@ -140,6 +140,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
     private int textSizeRow;
     private int stickersRow;
     private int cacheRow;
+    private int raiseToSpeakRow;
     private int sendByEnterRow;
     private int supportSectionRow;
     private int supportSectionRow2;
@@ -260,6 +261,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
         textSizeRow = rowCount++;
         stickersRow = rowCount++;
         cacheRow = rowCount++;
+        raiseToSpeakRow = rowCount++;
         sendByEnterRow = rowCount++;
         supportSectionRow = rowCount++;
         supportSectionRow2 = rowCount++;
@@ -436,6 +438,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                     final TextView message = new TextView(getParentActivity());
                     message.setText(Html.fromHtml(LocaleController.getString("AskAQuestionInfo", R.string.AskAQuestionInfo)));
                     message.setTextSize(18);
+                    message.setLinkTextColor(0xff316f9f);
                     message.setPadding(AndroidUtilities.dp(8), AndroidUtilities.dp(5), AndroidUtilities.dp(8), AndroidUtilities.dp(6));
                     message.setMovementMethod(new LinkMovementMethodMy());
 
@@ -461,6 +464,11 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                     editor.commit();
                     if (view instanceof TextCheckCell) {
                         ((TextCheckCell) view).setChecked(!send);
+                    }
+                } else if (i == raiseToSpeakRow) {
+                    MediaController.getInstance().toogleRaiseToSpeak();
+                    if (view instanceof TextCheckCell) {
+                        ((TextCheckCell) view).setChecked(MediaController.getInstance().canRaiseToSpeak());
                     }
                 } else if (i == autoplayGifsRow) {
                     MediaController.getInstance().toggleAutoplayGifs();
@@ -492,12 +500,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                     builder.setNegativeButton(LocaleController.getString("Cancel", R.string.Cancel), null);
                     showDialog(builder.create());
                 } else if (i == telegramFaqRow) {
-                    try {
-                        Intent pickIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(LocaleController.getString("TelegramFaqUrl", R.string.TelegramFaqUrl)));
-                        getParentActivity().startActivityForResult(pickIntent, 500);
-                    } catch (Exception e) {
-                        FileLog.e("tmessages", e);
-                    }
+                    AndroidUtilities.openUrl(getParentActivity(), LocaleController.getString("TelegramFaqUrl", R.string.TelegramFaqUrl));
                 } else if (i == contactsReimportRow) {
                     //not implemented
                 } else if (i == contactsSortRow) {
@@ -586,7 +589,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                     BottomSheet.BottomSheetCell cell = new BottomSheet.BottomSheetCell(getParentActivity(), 2);
                     cell.setBackgroundResource(R.drawable.list_selector);
                     cell.setTextAndIcon(LocaleController.getString("Save", R.string.Save).toUpperCase(), 0);
-                    cell.setTextColor(0xffcd5a5a);
+                    cell.setTextColor(0xff517fad);
                     cell.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -1153,7 +1156,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                     i == askQuestionRow || i == sendLogsRow || i == sendByEnterRow || i == autoplayGifsRow || i == privacyRow || i == wifiDownloadRow ||
                     i == mobileDownloadRow || i == clearLogsRow || i == roamingDownloadRow || i == languageRow || i == usernameRow ||
                     i == switchBackendButtonRow || i == telegramFaqRow || i == contactsSortRow || i == contactsReimportRow || i == saveToGalleryRow ||
-                    i == stickersRow || i == cacheRow;
+                    i == stickersRow || i == cacheRow || i == raiseToSpeakRow;
         }
 
         @Override
@@ -1257,6 +1260,8 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                     textCell.setTextAndCheck(LocaleController.getString("SaveToGallerySettings", R.string.SaveToGallerySettings), MediaController.getInstance().canSaveToGallery(), false);
                 } else if (i == autoplayGifsRow) {
                     textCell.setTextAndCheck(LocaleController.getString("AutoplayGifs", R.string.AutoplayGifs), MediaController.getInstance().canAutoplayGifs(), true);
+                } else if (i == raiseToSpeakRow) {
+                    textCell.setTextAndCheck(LocaleController.getString("RaiseToSpeak", R.string.RaiseToSpeak), MediaController.getInstance().canRaiseToSpeak(), true);
                 }
             } else if (type == 4) {
                 if (view == null) {
@@ -1375,7 +1380,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
             }
             if (i == settingsSectionRow || i == davidSettingsSectionRow || i == supportSectionRow || i == messagesSectionRow || i == mediaDownloadSection || i == contactsSectionRow) {
                 return 1;
-            } else if (i == enableAnimationsRow || i == extraInfoSecretNotification || i == enableScreenshotDetectionRow || i == sendByEnterRow || i == saveToGalleryRow) {
+            } else if (i == enableAnimationsRow || i == extraInfoSecretNotification || i == enableScreenshotDetectionRow || i == sendByEnterRow || i == saveToGalleryRow || i == autoplayGifsRow || i == raiseToSpeakRow) {
                 return 3;
             } else if (i == notificationRow || i == backgroundRow || i == askQuestionRow || i == sendLogsRow || i == privacyRow || i == clearLogsRow || i == switchBackendButtonRow || i == telegramFaqRow || i == contactsReimportRow || i == textSizeRow || i == languageRow || i == contactsSortRow || i == stickersRow || i == cacheRow) {
                 return 2;

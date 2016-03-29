@@ -513,6 +513,7 @@
     <string name="AskAQuestion">Ask a Question</string>
     <string name="EnableAnimations">Enable Animations</string>
     <string name="DetectScreenshots" translatable="false">Detect Screenshots</string>
+    <string name="AllowScreenshotSecretChat" translatable="false">Allow screenshot in secret chat</string>
     <string name="ShowExtraInfoSecretNotification" translatable="false">Use uninformative notifications</string>
     <string name="Unblock">Unblock</string>
     <string name="UnblockText">Tap and hold on user to unblock.</string>

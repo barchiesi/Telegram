@@ -2374,8 +2374,11 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
         updateSpamView();
         updatePinnedMessageView(true);
 
+        SharedPreferences preferences = ApplicationLoader.applicationContext.getSharedPreferences("mainconfig", Activity.MODE_PRIVATE);
+        boolean allowScreenshotSecretChat = preferences.getBoolean("allow_screenshot_secret_chat", false);
+
         try {
-            if (currentEncryptedChat != null && Build.VERSION.SDK_INT >= 14) {
+            if (currentEncryptedChat != null && Build.VERSION.SDK_INT >= 14 && !allowScreenshotSecretChat) {
                 getParentActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
             }
         } catch (Throwable e) {

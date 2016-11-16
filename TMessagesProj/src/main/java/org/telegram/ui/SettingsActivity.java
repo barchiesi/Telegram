@@ -442,12 +442,12 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                     }
                 } else if (position == extraInfoSecretNotification) {
                     SharedPreferences preferences = ApplicationLoader.applicationContext.getSharedPreferences("mainconfig", Activity.MODE_PRIVATE);
-                    boolean animations = preferences.getBoolean("show_extra_info_secret_notification", true);
+                    boolean showMessageInNotification = preferences.getBoolean("show_message_secret_notification", false);
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putBoolean("show_extra_info_secret_notification", !animations);
+                    editor.putBoolean("show_message_secret_notification", !showMessageInNotification);
                     editor.commit();
                     if (view instanceof TextCheckCell) {
-                        ((TextCheckCell) view).setChecked(!animations);
+                        ((TextCheckCell) view).setChecked(!showMessageInNotification);
                     }
                 } else if (position == notificationRow) {
                     presentFragment(new NotificationsSettingsActivity());
@@ -1366,7 +1366,7 @@ public class SettingsActivity extends BaseFragment implements NotificationCenter
                     } else if (position == allowScreenshotSecretChatRow) {
                         textCell.setTextAndCheck(LocaleController.getString("AllowScreenshotSecretChat", R.string.AllowScreenshotSecretChat), preferences.getBoolean("allow_screenshot_secret_chat", true), false);
                     } else if (position == extraInfoSecretNotification) {
-                        textCell.setTextAndCheck(LocaleController.getString("ShowExtraInfoSecretNotification", R.string.ShowExtraInfoSecretNotification), preferences.getBoolean("show_extra_info_secret_notification", true), false);
+                        textCell.setTextAndCheck(LocaleController.getString("ShowMessageTextInSecretChatNotification", R.string.ShowMessageTextInSecretChatNotification), preferences.getBoolean("show_message_secret_notification", false), false);
                     } else if (position == sendByEnterRow) {
                         textCell.setTextAndCheck(LocaleController.getString("SendByEnter", R.string.SendByEnter), preferences.getBoolean("send_by_enter", false), false);
                     } else if (position == saveToGalleryRow) {
